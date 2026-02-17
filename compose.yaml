@@ -1,0 +1,18 @@
+services:
+  cusdis:
+    image: djyde/cusdis:latest
+    env_file: .env
+    volumes:
+      - cusdis_data:/data
+    restart: unless-stopped
+
+  caddy:
+    image: caddy:alpine
+    ports:
+      - "${PORT}:${PORT}"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+    restart: unless-stopped
+
+volumes:
+  cusdis_data:
