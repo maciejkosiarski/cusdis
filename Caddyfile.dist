@@ -1,58 +1,7 @@
-:40143 {
-      @preflight method OPTIONS
-      @nullorigin header Origin null
-      @siteorigin header Origin https://yourdomain.com
+:your_port {
+    reverse_proxy cusdis:3000
 
-      handle @preflight {
-          @preflight_null header Origin null
-          handle @preflight_null {
-              header Access-Control-Allow-Origin null
-              header Access-Control-Allow-Methods "GET, POST, OPTIONS"
-              header Access-Control-Allow-Headers *
-              header Access-Control-Allow-Credentials true
-              respond 204
-          }
-
-          @preflight_site header Origin https://yourdomain.com
-          handle @preflight_site {
-              header Access-Control-Allow-Origin https://yourdomain.com
-              header Access-Control-Allow-Methods "GET, POST, OPTIONS"
-              header Access-Control-Allow-Headers *
-              header Access-Control-Allow-Credentials true
-              respond 204
-          }
-
-          handle {
-              header Access-Control-Allow-Origin *
-              header Access-Control-Allow-Methods "GET, POST, OPTIONS"
-              header Access-Control-Allow-Headers *
-              respond 204
-          }
-      }
-
-      handle @nullorigin {
-          reverse_proxy cusdis:3000 {
-              header_down Access-Control-Allow-Origin null
-              header_down Access-Control-Allow-Methods "GET, POST, OPTIONS"
-              header_down Access-Control-Allow-Headers *
-              header_down Access-Control-Allow-Credentials true
-          }
-      }
-
-      handle @siteorigin {
-          reverse_proxy cusdis:3000 {
-              header_down Access-Control-Allow-Origin https://yourdomain.com
-              header_down Access-Control-Allow-Methods "GET, POST, OPTIONS"
-              header_down Access-Control-Allow-Headers *
-              header_down Access-Control-Allow-Credentials true
-          }
-      }
-
-      handle {
-          reverse_proxy cusdis:3000 {
-              header_down Access-Control-Allow-Origin *
-              header_down Access-Control-Allow-Methods "GET, POST, OPTIONS"
-              header_down Access-Control-Allow-Headers *
-          }
-      }
-  }
+    @widget path /js/iframe.umd.js
+    header @widget Access-Control-Allow-Origin https://yourdomain.com
+    header @widget Vary Origin
+}
