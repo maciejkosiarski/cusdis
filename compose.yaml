@@ -5,6 +5,7 @@ services:
     volumes:
       - cusdis_data:/data
     restart: unless-stopped
+    mem_limit: 150m
 
   caddy:
     image: caddy:alpine
@@ -13,6 +14,7 @@ services:
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
     restart: unless-stopped
+    mem_limit: 50m
 
 volumes:
   cusdis_data:
