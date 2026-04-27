@@ -6,6 +6,11 @@ services:
       - cusdis_data:/data
     restart: unless-stopped
     mem_limit: 150m
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   caddy:
     image: caddy:alpine
@@ -15,6 +20,11 @@ services:
       - ./Caddyfile:/etc/caddy/Caddyfile
     restart: unless-stopped
     mem_limit: 50m
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
 volumes:
   cusdis_data:
