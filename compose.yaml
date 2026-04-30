@@ -5,7 +5,7 @@ services:
     volumes:
       - cusdis_data:/data
     restart: unless-stopped
-    mem_limit: 150m
+    mem_limit: 200m
     logging:
       driver: "json-file"
       options:
